@@ -33,8 +33,7 @@ public class CustomObjectController : MonoBehaviour {
 
     void doMove(float lh, float lv)
     {
-        /// 
-        Debug.Log(lh);                                                                                
+                                                                              
          CamRig = GameObject.Find("CenterEyeAnchor");
         
         transform.rotation = Quaternion.Euler(0f, CamRig.transform.eulerAngles.y, 0f);
