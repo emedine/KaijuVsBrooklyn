@@ -106,6 +106,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Zip">
+      <HintPath>Assets\Infinity Code\Real World Terrain\Zip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="KaijuVSBrooklyn.CSharp.Plugins.csproj">
@@ -133,6 +136,44 @@
     <Compile Include="Assets\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain Updater\Scripts\Editor\RealWorldTerrainUpdater.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Extentions\Editor\RealWorldTerrainExtCurrentLatLonWindow.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Extentions\Editor\RealWorldTerrainExtLookLatLonEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrain.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainAboutWindow.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainBuildRPresets.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainClearCache.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainClearSettings.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainContainerEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainDownloader.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainEditorUtils.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainElevation.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainElevationBing.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainElevationSRTM.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainFeatureRequest.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainGUIUtils.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainGeneratorColor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainGrassGenerator.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainImporter.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainItemEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainMetaEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSM.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMBuildREditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMBuildingEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMGrass.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMRivers.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMRoad.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainOSMTree.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainPrefs.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainReporter.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainResources.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainRoadArchitectNodeEditor.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainScaler.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainSettings.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainSettingsGenerator.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainSplatPrototype.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainSplatPrototypeGenerator.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\Editor\RealWorldTerrainTexture.cs" />
     <Compile Include="Assets\OVR\Editor\OVRBuild.cs" />
     <Compile Include="Assets\OVR\Editor\OVRMoonlightLoader.cs" />
     <Compile Include="Assets\OVR\Editor\OVRScreenshotWizard.cs" />
@@ -150,10 +191,14 @@
     <Compile Include="Assets\VolumetricLines\Scripts\Editor\VolumetricLineStripBehaviorEditor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\GoogleMaps\README.txt" />
+    <None Include="Assets\Infinity Code\Real World Terrain\Shaders\Water.shader" />
     <None Include="Assets\OVR\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\OVR\Shaders\OVRColorRampAlpha.shader" />
     <None Include="Assets\OVR\Shaders\Unlit Crosshair.shader" />
     <None Include="Assets\Plugins\Android\Assets\OSIG_Readme.txt" />
+    <None Include="Assets\Resources\positioningdataLat.txt" />
+    <None Include="Assets\Resources\positioningdataLong.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />

@@ -70,6 +70,9 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Zip">
+      <HintPath>Assets\Infinity Code\Real World Terrain\Zip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="KaijuVSBrooklyn.CSharp.Plugins.csproj">
@@ -81,7 +84,21 @@
     <Compile Include="Assets\CustomScripts\CustomObjectController.cs" />
     <Compile Include="Assets\CustomScripts\Explode.cs" />
     <Compile Include="Assets\CustomScripts\EyeballLaserBehavior.cs" />
+    <Compile Include="Assets\CustomScripts\HouseMesh.cs" />
     <Compile Include="Assets\CustomScripts\KaijuMain.cs" />
+    <Compile Include="Assets\GoogleMaps\Scripts\GoogleMap.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Extentions\RealWorldTerrainExtLookLatLon.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainBuildR.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainContainer.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainEnums.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainItem.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainMeta.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainOSMBuilding.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainRoadArchitectNode.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainStructs.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainUtils.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainVector2i.cs" />
+    <Compile Include="Assets\Infinity Code\Real World Terrain\Scripts\RealWorldTerrainXMLExt.cs" />
     <Compile Include="Assets\OVR\Scripts\OVRBoundary.cs" />
     <Compile Include="Assets\OVR\Scripts\OVRCameraRig.cs" />
     <Compile Include="Assets\OVR\Scripts\OVRCommon.cs" />
@@ -270,10 +287,14 @@
     <Compile Include="Assets\VolumetricLines\Scripts\VolumetricMultiLineBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\GoogleMaps\README.txt" />
+    <None Include="Assets\Infinity Code\Real World Terrain\Shaders\Water.shader" />
     <None Include="Assets\OVR\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\OVR\Shaders\OVRColorRampAlpha.shader" />
     <None Include="Assets\OVR\Shaders\Unlit Crosshair.shader" />
     <None Include="Assets\Plugins\Android\Assets\OSIG_Readme.txt" />
+    <None Include="Assets\Resources\positioningdataLat.txt" />
+    <None Include="Assets\Resources\positioningdataLong.txt" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
     <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
