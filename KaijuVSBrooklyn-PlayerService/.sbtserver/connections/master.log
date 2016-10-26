@@ -1,0 +1,7 @@
+New log file opened at Wed Oct 26 01:47:23 EDT 2016 by 20387@Lerenzos-MBP.fios-router.home
+Taking next connection to: 50698
+New client attempting to connect on port: 50699-50698
+  Address = /192.168.1.151:50698
+This client on port 50699 has uuid 594c3b2a-3f6b-4f94-9401-c9d50d9baa2e configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-594c3b2a-3f6b-4f94-9401-c9d50d9baa2e
+Taking next connection to: 50698
