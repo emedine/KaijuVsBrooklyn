@@ -1,0 +1,98 @@
+{
+  "event": "user-positions",
+  "positions": {
+    "type": "FeatureCollection",
+    "bbox": [
+      -81.79681777954102,
+      36.10839217739149,
+      -81.78276300430296,
+      36.118099586255674
+    ],
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103634
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7953598495717,
+            36.117907024524
+          ]
+        },
+        "id": "bot-14-2552-707-13-2306-Nuwati"
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103634
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7899743774218,
+            36.1182562805585
+          ]
+        },
+        "id": "bot-13-2552-401-12-2305-Nuwati"
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103634
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7824980081908,
+            36.1190323636423
+          ]
+        },
+        "id": "bot-12-2552-958-11-2304-Tanawha"
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103634
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7988133868301,
+            36.1096871281533
+          ]
+        },
+        "id": "bot-19-2552-630-18-2546-Daniel Boone Scout"
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103624
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7905717307402,
+            36.1153005901522
+          ]
+        },
+        "id": "bot-1-2552-495-0-2297-Cragway"
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "timestamp": 1478120103634
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7916732088236,
+            36.11275004111
+          ]
+        },
+        "id": "bot-10-2552-916-9-2302-Daniel Boone Scout"
+      }
+    ]
+  }
+}
