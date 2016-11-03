@@ -1,0 +1,164 @@
+@charset "utf-8";
+
+body {
+    font:bold 12px Tahoma, Geneva, sans-serif;
+    font-style:normal;
+}
+
+.box11 {
+    border: 1px solid #848484;;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    height: 24px;
+    width:100px;
+}
+
+.hint {
+    background-color: GhostWhite;
+    border: thin inset;
+    padding: 5px;
+}
+
+.ildiv {
+    display:inline;
+}
+
+.i2Style {
+    color:#ffffff;
+    background:#1568db;
+    border:0px solid #ffffff;
+    text-shadow:0px -1px 1px #222222;
+    box-shadow:2px 2px 5px #000000;
+    -moz-box-shadow:2px 2px 5px #000000;
+    -webkit-box-shadow:2px 2px 5px #000000;
+    border-radius:10px 10px 10px 10px;
+    -moz-border-radius:10px 10px 10px 10px;
+    -webkit-border-radius:10px 10px 10px 10px;
+    width:255px;
+    padding:12px 15px;
+    cursor:pointer;
+    margin:0 auto;
+    text-align:center;
+}
+
+.i2Style:active {
+    cursor:pointer;
+    position:relative;
+    top:2px;
+}
+
+.m5i {
+    margin-top:5px;
+}
+
+.m10i {
+    margin-top: 10px;
+}
+
+.m20i {
+    margin-top:20px;
+}
+
+.title {
+    background-color: #1568DB;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 2px;
+    text-align: center;
+}
+
+.dl-btn {
+    display: inline-block;
+    margin: 5px 30px 5px 0;
+    width: 60px;
+}
+
+.ilml15 {
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.wrong {
+    background-color: red;
+}
+
+.hidden {
+    display: none;
+}
+
+#download-links{
+	margin-top: 10px;
+}
+
+#map-canvas {
+    width:600px;
+    height:600px;
+    margin-left:10px;
+    display:inline-block;
+}
+
+#map-container {
+    margin: 10px auto;
+    width: 930px;
+}
+
+#map-controls {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#map-coord {
+    margin-top:10px;
+}
+
+#map-info {
+    display: inline-block;
+    margin-left:10px;
+    vertical-align:top;
+    width:300px;
+}
+
+#search-block {
+    height: 50px;
+}
+
+#search-address {
+    margin-left: 10px;
+    width: 595px;
+}
+
+#MoveSelector img {
+    cursor: pointer;
+}
+
+
+.poi {
+    height: 35px;
+}
+
+.poi:hover {
+    background-color: LightSteelBlue;
+}
+
+.poi > div {
+    display: inline-block;
+}
+
+.poiDelete {
+    padding: 3px;
+    width: 20px;
+}
+
+.poiIndex {
+    text-align: center;
+    width: 40px;
+}
+
+.poiTitle {
+    width: 500px;
+}
+
+.poiPosition {
+    width: 355px;
+}

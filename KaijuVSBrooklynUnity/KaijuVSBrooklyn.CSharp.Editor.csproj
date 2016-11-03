@@ -109,6 +109,9 @@
     <Reference Include="Zip">
       <HintPath>Assets\Infinity Code\Real World Terrain\Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="KaijuVSBrooklyn.CSharp.Plugins.csproj">
@@ -193,6 +196,10 @@
   <ItemGroup>
     <None Include="Assets\GoogleMaps\README.txt" />
     <None Include="Assets\Infinity Code\Real World Terrain\Shaders\Water.shader" />
+    <None Include="Assets\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
+    <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\OVR\Resources\Unlit Transparent Color.shader" />
     <None Include="Assets\OVR\Shaders\OVRColorRampAlpha.shader" />
     <None Include="Assets\OVR\Shaders\Unlit Crosshair.shader" />
