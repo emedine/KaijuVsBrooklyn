@@ -33,7 +33,7 @@ class RegionManager extends Actor {
 
   //TODO: Change Region ID to scala
   def getRegionActor(regionId: RegionId, props: Props): ActorRef = {
-    val maybeChild = context.child(regionId.getName)
+    val maybeChild = context.child(regionId.name)
 
     if(maybeChild.isDefined) maybeChild.get else context.actorOf(props)
   }

@@ -68,14 +68,14 @@ public class SummaryRegion extends UntypedActor {
             expired.forEach(activePoints::remove);
 
             // Cluster
-            RegionPoints points = new RegionPoints(regionId, settings.GeoFunctions.cluster(regionId.getName(),
+            RegionPoints points = new RegionPoints(regionId, settings.GeoFunctions.cluster(regionId.name(),
                     regionBounds, activePoints.values().stream().flatMap(u -> u._1.stream()).collect(Collectors.toList())));
 
             // propagate the points to higher level summary region via the manager
             getContext().parent().tell(points, self());
 
             // publish total count to subscribers
-            mediator.tell(new Publish(regionId.getName(), points), self());
+            mediator.tell(new Publish(regionId.name(), points), self());
 
             // stop the actor when no active sub-regions
             if (activePoints.isEmpty()) {

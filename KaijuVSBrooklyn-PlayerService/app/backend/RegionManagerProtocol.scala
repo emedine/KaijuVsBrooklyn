@@ -8,7 +8,7 @@ import models.backend.UserPosition
 trait RegionManagerProtocol {
   def regionId: RegionId
 
-  def consistentHashKey = regionId.getName
+  def consistentHashKey = regionId.name
 }
 
 case class UpdateUserPositionWithRegion(regionId: RegionId, userPosition: UserPosition) extends RegionManagerProtocol with ConsistentHashable

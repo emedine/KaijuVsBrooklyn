@@ -63,12 +63,12 @@ public class PositionSubscriber extends UntypedActor {
 
             // Subscribe to any regions that we're not already subscribed to
             newRegions.stream().filter(r -> !regions.contains(r)).forEach(region ->
-                    mediator.tell(new Subscribe(region.getName(), self()), self())
+                    mediator.tell(new Subscribe(region.name(), self()), self())
             );
 
             // Unsubscribe from any regions that we no longer should be subscribed to
             regions.stream().filter(r -> !newRegions.contains(r)).forEach(region ->
-                    mediator.tell(new Unsubscribe(region.getName(), self()), self())
+                    mediator.tell(new Unsubscribe(region.name(), self()), self())
             );
 
             regions = newRegions;

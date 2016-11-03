@@ -9,7 +9,7 @@ package models.backend;
  * The x value starts at 0 at -180 West, and goes to 2 ^^ zoomLevel at 180 East.  The y value starts at 0 at -90 South,
  * and goes to 2 ^^ zoomLevel at 90 North.
  */
-public class RegionId {
+/*public class RegionId {
 
     private final int zoomLevel;
     private final int x;
@@ -66,4 +66,4 @@ public class RegionId {
         result = 31 * result + y;
         return result;
     }
-}
+}*/
