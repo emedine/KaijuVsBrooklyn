@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// using LitJson;
+using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 public class KaijuMain : MonoBehaviour {
 
@@ -19,21 +22,40 @@ public class KaijuMain : MonoBehaviour {
     public GameObject playerMarker;
     public GameObject posBounds;
     private Vector3 mapBounds;
+
+    // JSON objects
+
+    public string title;
+    public string id;
+    public ArrayList latArray; // array of latitude
+    public ArrayList LongArray; // array of longitude
+   //// List<string> PNameArray = new ArrayList<string>();  // array of player names
+
+    TargetProfile TarD = new TargetProfile();
+
     // Use this for initialization
     void Start () {
-        /// get target bounds
-        /// 
+        /// get target map bounds-- this is the basis for our latlong to unity positioning system
         mapBounds = posBounds.GetComponent<Renderer>().bounds.size;
         // mapBounds = Vector3.Scale(transform.localScale, posBounds.GetComponent<MeshFilter>().mesh.bounds.size);
         mapWidth = mapBounds.x;
         mapHeight = mapBounds.z;
         Debug.Log("MapSIZE  " + mapWidth + " " + mapHeight);
-        /// initialize targets
+
+
+        /// initialize targets from .txt file
         addTargets();
-    }
-	
-	// Update is called once per frame
-	void Update () {
+
+        /// set json check for character locations. Figure out update method
+        /// InvokeRepeating ("ParseJson", 0, 5);
+
+        ParseJson();
+
+      
+}
+
+    // Update is called once per frame
+    void Update () {
         //transform.position = Input.mousePosition;
         // Debug.Log("tp:" + transform.position);
         // Debug.Log("mp:" + Input.mousePosition);
@@ -67,16 +89,47 @@ public class KaijuMain : MonoBehaviour {
                 Debug.Log("NO MARKER FOUND");
 
             }
-
-
         }
-
     }
 
-    
+
 
 
     ///////////// ADD PREMADE TARGET OBJECTS BY LAT AND LONG /////////////////////////////////////////
+
+    void ParseJson()
+    {
+        /// Debug.Log(JsonConvert.SerializeObject(TarD));
+        string json = File.ReadAllText(@"X:\WORK\KAYFABE_VR\KaijuVSBrooklyn\Assets\Resources\playerdata.json");
+        var jo = JObject.Parse(json);
+
+        // var theLat = jo["positions"]["features"][0]["geometry"]["coordinates"].ToString(); //this sort of works
+        var tLength = jo["positions"]["features"].ToObject<ArrayList>().Count;
+
+        float theLat = 0f;
+        float theLong = 0f;
+        for (int i = 0; i < tLength; i++)
+        {
+            theLat = jo["positions"]["features"][i]["geometry"]["coordinates"][0].Value<float>();
+            theLong = jo["positions"]["features"][i]["geometry"]["coordinates"][1].Value<float>();
+            /// add name to array
+            var tName = jo["positions"]["features"][i]["id"].Value<string>();
+            /// PNameArray.Add
+           ///  Debug.Log("name: " + PNameArray.Add(tName));
+            /// update positions
+            latLongToXZ(theLat, theLong, tName);
+            Debug.Log("Length: " + tLength + " == theLat: " + theLat + " theLong: " + theLong);
+        }
+
+        /*
+        TarD.tarLat = 3.2456f;
+        TarD.tarLong = 5.2456f;
+        TarD.tName = "Eric";
+        
+        TargetData CurTarData = JsonConvert.DeserializeObject<TargetData>(json);
+        Debug.Log("Cur Target Data: " + CurTarData.ToString());
+        */
+    }
 
     void addTargets()
     {
@@ -86,10 +139,12 @@ public class KaijuMain : MonoBehaviour {
         string[] tLong = System.IO.File.ReadAllLines(@"X:\WORK\KAYFABE_VR\KaijuVSBrooklyn\Assets\Resources\positioningdataLong.txt");
         
         for(int i = 0; i<tLat.Length; i++){
-
-            latLongToXZ(float.Parse(tLat[i]), float.Parse(tLong[i]));
+            /// we're not doing it this way anymore
+           ///  latLongToXZ(float.Parse(tLat[i]), float.Parse(tLong[i]), PNameArray[i].ToString());
             
         }
+
+        
 
 
     }
@@ -98,18 +153,18 @@ public class KaijuMain : MonoBehaviour {
 
 
 
-    void latLongToXZ(float tLat, float tLong)
+    void latLongToXZ(float tLat, float tLong, string tName)
     {
 
         /// READS LONGITUDE AND LAT
         RealWorldTerrainContainer rwtc = GameObject.Find("RealWorld Terrain").GetComponent<RealWorldTerrainContainer>();
-        Debug.Log("TopLeft:"+rwtc.topLeft);
-        Debug.Log("BotRight:" + rwtc.bottomRight);
+        // Debug.Log("TopLeft:"+rwtc.topLeft);
+        // Debug.Log("BotRight:" + rwtc.bottomRight);
 
         float rX = (rwtc.topLeft.x - tLong) / (rwtc.topLeft.x - rwtc.bottomRight.x);
         float rY = (rwtc.topLeft.y - tLat) / (rwtc.topLeft.y - rwtc.bottomRight.y);
 
-        Debug.Log("Orig coords: (" + tLat + ", " + tLong + ") " + "Ratio coords: (" + rX + ", " + rY + ")");
+        // Debug.Log("Orig coords: (" + tLat + ", " + tLong + ") " + "Ratio coords: (" + rX + ", " + rY + ")");
 
         Vector3 newPos = new Vector3(rX * mapWidth, 0f, mapHeight- (rY * mapHeight));
 
@@ -118,21 +173,21 @@ public class KaijuMain : MonoBehaviour {
         float screenX = ((tLong + 180) * (mapWidth / 360));
         float screenZ = (((tLat * -1) + 90) * (mapHeight / 180));
         */
-        // maybe this?\
-        /*
-        float screenX = (mapWidth / 360.0f) * (180 + tLat);
-        float screenZ = (mapHeight / 180.0f) * (90 - tLong);
-        */
-
         //float screenX = mapWidth * (180 + tLat) / 360;
         //float screenZ = mapHeight * (90 - tLong) / 180;
         //Vector3 newPos= new Vector3(screenX, 0, screenZ);
         // GameObject ego = GameObject.Instantiate(playerMarker, m_eyeball.position, m_eyeball.rotation) as GameObject;
+
         GameObject cube = GameObject.Instantiate(playerMarker);
         cube.AddComponent<Rigidbody>();
         cube.transform.position = newPos;
 
-        //Debug.Log("SPAWNING PLAYERS at " + screenX + ", " + screenZ + " from the LAT: " + tLat + ", and LONG: " + tLong);
+        /*
+        var data = cube.GetComponent<TargetProfile>();
+        data.TargetName = tName;
+        */
+
+        //// Debug.Log("SPAWNING PLAYERS at " + screenX + ", " + screenZ + " from the LAT: " + tLat + ", and LONG: " + tLong);
         /// REALLY COMPLEX ALGORYTHM
 
         ////http://stackoverflow.com/questions/18838915/convert-lat-lon-to-pixel-coordinate
@@ -193,6 +248,33 @@ public class KaijuMain : MonoBehaviour {
             Debug.Log("pass thru" + other.gameObject.name);
         }
 
+    }
+
+}
+
+
+class TargetProfile {
+
+    public float tarLat;
+    public float tarLong;
+    public string tName;
+
+    public TargetProfile()
+    {
+
+
+    }
+
+    public string TargetName { get; internal set; }
+
+
+    /// get the json file
+    /// 
+
+    /// parse it
+    public override string ToString()
+    {
+        return tName+": "+tarLat + ", " + tarLong;
     }
 
 }
