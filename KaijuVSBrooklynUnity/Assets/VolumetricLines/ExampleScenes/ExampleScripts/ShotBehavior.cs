@@ -19,9 +19,8 @@ public class ShotBehavior : MonoBehaviour {
     void OnCollisionEnter(Collision col)
     {
         /// get the parent object of the collider and see what it's tag is
-        /// if (col.gameObject.tag == "Destructable")
-        if (col.gameObject.transform.parent.gameObject.tag == "Destructable")
-        {
+
+        if (col.gameObject.transform.parent != null && col.gameObject.transform.parent.gameObject.tag == "Destructable") {
             ContactPoint contact = col.contacts[0];
             Vector3 pos = contact.point;
             //// print("Collision detected with trigger object " + col.gameObject.name);
@@ -29,8 +28,7 @@ public class ShotBehavior : MonoBehaviour {
             Destroy(col.gameObject.transform.parent.gameObject);
             Debug.Log("YOU HIT SOMETHING");
             Object.Destroy(this.gameObject);
-        }else
-        {
+        }else {
 
             Debug.Log("pass thru");
         }
