@@ -66,8 +66,8 @@ public class GeoFunctions {
             RegionId southWestRegion = regionForPoint(bbox.getSouthWest(), zoomLevel);
             RegionId northEastRegion = regionForPoint(bbox.getNorthEast(), zoomLevel);
             // Now calculate the width of regions we need, we need to add 1 for it to be inclusive of both end regions
-            int xLength = northEastRegion.getX() - southWestRegion.getX() + 1;
-            int yLength = northEastRegion.getY() - southWestRegion.getY() + 1;
+            int xLength = northEastRegion.x() - southWestRegion.x() + 1;
+            int yLength = northEastRegion.y() - southWestRegion.y() + 1;
             // Check if the number of regions is in our bounds
             int numRegions = xLength * yLength;
             if (numRegions <= 0) {
@@ -80,8 +80,8 @@ public class GeoFunctions {
                     int x = i % xLength;
                     // We need to mod positive the x value, because it's possible that the bounding box started or ended
                     // from less than -180 or greater than 180 W/E.
-                    regions.add(new RegionId(zoomLevel, modPositive(southWestRegion.getX() + x, axisSteps),
-                            southWestRegion.getY() + y));
+                    regions.add(new RegionId(zoomLevel, modPositive(southWestRegion.x() + x, axisSteps),
+                            southWestRegion.y() + y));
                 }
                 return ImmutableSet.copyOf(regions);
             } else {
@@ -95,11 +95,11 @@ public class GeoFunctions {
      * Get the bounding box for the given region.
      */
     public BoundingBox boundingBoxForRegion(RegionId regionId) {
-        long axisSteps = 1l << regionId.getZoomLevel();
+        long axisSteps = 1l << regionId.zoomLevel();
         double yStep = 180d / axisSteps;
         double xStep = 360d / axisSteps;
-        double latRegion = regionId.getY() * yStep - 90;
-        double lngRegion = regionId.getX() * xStep - 180;
+        double latRegion = regionId.y() * yStep - 90;
+        double lngRegion = regionId.x() * xStep - 180;
 
         return new BoundingBox(
                 new LatLng(latRegion, lngRegion),
@@ -107,10 +107,10 @@ public class GeoFunctions {
     }
 
     public Optional<RegionId> summaryRegionForRegion(RegionId regionId) {
-        if (regionId.getZoomLevel() == 0) {
+        if (regionId.zoomLevel() == 0) {
             return Optional.empty();
         } else {
-            return Optional.of(new RegionId(regionId.getZoomLevel() - 1, regionId.getX() >>> 1, regionId.getY() >>> 1));
+            return Optional.of(new RegionId(regionId.zoomLevel() - 1, regionId.x() >>> 1, regionId.y() >>> 1));
         }
     }
 

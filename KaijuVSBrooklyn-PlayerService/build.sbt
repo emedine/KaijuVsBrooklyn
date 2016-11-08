@@ -7,7 +7,8 @@ version := "1.0-SNAPSHOT"
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("releases"),
-  Resolver.sonatypeRepo("snapshots")
+  Resolver.sonatypeRepo("snapshots"),
+  "Typesafe repository" at "https://repo.typesafe.com/typesafe/maven-releases/"
 )
 
 libraryDependencies ++= Seq(

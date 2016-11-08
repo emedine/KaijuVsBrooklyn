@@ -13,9 +13,5 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-.target
-.cache
-bin
-.DS_Store
-activator-sbt-*-shim.sbt
-.sbtserver/*
+
+    

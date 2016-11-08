@@ -27,8 +27,10 @@ import scala.collection.mutable
 class Main extends App {
   val system = ActorSystem.create("t3hBotz")
 
+  //main backend akka cluster
   if(Cluster.get(system).getSelfRoles.contains("backend")) system.actorOf(Props[RegionManager], "regionManager")
 
+  //both front ends (!)
   if(Settings.SettingsProvider.get(system).BotsEnabled && Cluster.get(system).getSelfRoles.contains("frontend")) {
     val regionManagerClient = system.actorOf(Props[RegionManagerClient], "regionManagerClient")
     var id = 1

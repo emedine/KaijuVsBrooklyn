@@ -15,6 +15,10 @@ import models.backend.UserPosition;
  * A client for the region manager, handles routing of position updates to the
  * regionManager on the right backend node.
  */
+
+
+//TODO: 10/28/16 Change this to Scala
+//TODO: 10/28/16 Understand and move to a separate application folder
 public class RegionManagerClient extends UntypedActor {
   public static Props props() {
       return Props.create(RegionManagerClient.class, RegionManagerClient::new);

@@ -57,7 +57,7 @@ public class Region extends UntypedActor {
 
             activeUsers.put(pos.id(), new Tuple<>(pos, Deadline.now().$plus(settings.ExpiryInterval)));
             // publish new user position to subscribers
-            mediator.tell(new Publish(regionId.getName(), pos), self());
+            mediator.tell(new Publish(regionId.name(), pos), self());
 
         } else if (msg == TICK) {
             // expire inactive users
@@ -68,7 +68,7 @@ public class Region extends UntypedActor {
             expired.forEach(activeUsers::remove);
 
             // Cluster
-            RegionPoints points = new RegionPoints(regionId, settings.GeoFunctions.cluster(regionId.getName(),
+            RegionPoints points = new RegionPoints(regionId, settings.GeoFunctions.cluster(regionId.name(),
                     regionBounds, activeUsers.values().stream().map(u -> u._1).collect(Collectors.toList())));
 
             // propagate the points to the summary region via the parent manager

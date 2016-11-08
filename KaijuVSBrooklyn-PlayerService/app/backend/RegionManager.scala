@@ -12,6 +12,8 @@ import models.backend.{RegionId, RegionPoints}
 class RegionManager extends Actor {
   val regionManagerRouter: ActorRef = context.actorOf(Props.empty.withRouter(FromConfig.getInstance), "router")
 
+
+  //TODO change settings impl to scala
   val settings: SettingsImpl = Settings.SettingsProvider.get(context.system)
 
   def receive = {
@@ -21,6 +23,7 @@ class RegionManager extends Actor {
     case UpdateRegionPoints(regionId:RegionId, regionPoints: RegionPoints) =>
       getRegionActor(regionId, Props(classOf[SummaryRegion], regionId)) ! regionPoints
 
+    //TODO change Geofunctions to scala
     case RegionPoints(regionId, points: RegionPoints) => {
       val summaryRegionId = settings.GeoFunctions.summaryRegionForRegion(points.regionId).asInstanceOf[Option[RegionId]]
 
@@ -28,9 +31,6 @@ class RegionManager extends Actor {
     }
   }
 
-  def getRegionActor(regionId: RegionId, props: Props): ActorRef = {
-    val maybeChild = context.child(regionId.getName)
-
-    if(maybeChild.isDefined) maybeChild.get else context.actorOf(props)
-  }
+  def getRegionActor(regionId: RegionId, props: Props): ActorRef =
+    context.child(regionId.name) getOrElse context.actorOf(props)
 }
