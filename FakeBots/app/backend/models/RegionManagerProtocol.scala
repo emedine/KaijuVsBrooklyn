@@ -1,9 +1,7 @@
-package backend
+package backend.models
 
 import akka.routing.ConsistentHashingRouter.ConsistentHashable
-import models.backend.RegionId
-import models.backend.RegionPoints
-import models.backend.UserPosition
+import backend.geomodels.{RegionId, RegionPoints, UserPosition}
 
 trait RegionManagerProtocol {
   def regionId: RegionId
