@@ -1,5 +1,7 @@
 package actors
 
+import java.time.ZonedDateTime
+
 import akka.actor.{Actor, ActorRef, Props, Scheduler}
 import org.geojson.Point
 import play.api.libs.json.JsValue
@@ -12,7 +14,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
   println("just made a clientConnection yas!")
 
-  val nyc = bbox(-74.2669, -73.6283, 40.8699, 40.5696)
+//  upper left: lat: 36.0358, long: -113.6438
+//  lower right: lat: 35.568, long: -113.067
+  val nyc = bbox(-113.6438, -113.067, 36.0358, 35.568)
 
   var targetPoints = (0 until 100) map { _: Int => generatePointInNyc }
 
@@ -28,17 +32,16 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
 
   val cancellable =
     scheduler.schedule(
-      0.milliseconds,
-      500.milliseconds,
+      0.seconds,
+      1.second,
       new Runnable() {
         override def run(): Unit = {
-          currentFrame = currentFrame match {
-            case num if num == maxFrames =>
-              updatePoints()
-              0
-            case _ =>
-              moveBots()
-              currentFrame + 1
+          if(currentFrame == maxFrames) {
+            updatePoints()
+            currentFrame = 0
+          } else{
+            moveBots()
+            currentFrame = currentFrame + 1
           }
           println("\n\n yas from the bots\n\n")
         }
@@ -68,7 +71,7 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
          |{
          |    "type": "Feature",
          |    "properties": {
-         |        "timestamp": 1478120027631
+         |        "timestamp": ${ZonedDateTime.now()}
          |    },
          |    "geometry": {
          |        "type": "Point",
@@ -77,7 +80,7 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
          |            $longDelta
          |        ]
          |    },
-         |    "id": "${bot.hashCode()}"
+         |    "id": "Bot ${bot.hashCode}"
          |}
         """.stripMargin
       }
@@ -107,7 +110,6 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
   override def receive: Receive = {
     case json: JsValue =>
       println("yaaaaas just received a json node")
-    //out ! s"just got the json message: ${json.toString}"
 
     case s: String =>
       println("just got a string message" + s)
