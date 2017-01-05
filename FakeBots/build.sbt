@@ -14,6 +14,12 @@ libraryDependencies ++= Seq(
   "de.grundid.opendatalab" % "geojson-jackson" % "1.1"
 )
 
+// setting a maintainer which is used for all packaging types
+maintainer := "Yas Kween"
+
+// exposing the play ports
+dockerExposedPorts in Docker := Seq(9000, 9443)
+
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
