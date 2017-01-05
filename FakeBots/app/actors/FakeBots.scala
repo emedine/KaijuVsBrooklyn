@@ -71,7 +71,8 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
          |{
          |    "type": "Feature",
          |    "properties": {
-         |        "timestamp": ${ZonedDateTime.now()}
+         |        "timestamp": "${ZonedDateTime.now()}",
+         |        "isBot": true
          |    },
          |    "geometry": {
          |        "type": "Point",
