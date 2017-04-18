@@ -16,19 +16,20 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
 
 //  upper left: lat: 36.0358, long: -113.6438
 //  lower right: lat: 35.568, long: -113.067
-  val nyc = bbox(-113.6438, -113.067, 36.0358, 35.568)
 
-  var targetPoints = (0 until 100) map { _: Int => generatePointInNyc }
+  val nyc = bbox(-122.3959, -122.4165, 37.78048, 37.78917)
 
-  var bots = (0 until 100) map { _ => Bot(generatePointInNyc, generatePointInNyc) }
+  val bots = (0 until 100).map(Bot(_, generatePointInNyc, generatePointInNyc))
 
   val Tick = "tick"
 
   var currentFrame = 0
 
-  val maxFrames = 60
+  val maxFrame = 60
 
-  def delta = (maxFrames - currentFrame) / maxFrames
+  val scale = 1f
+
+  def isLastFrame = currentFrame == maxFrame
 
   val cancellable =
     scheduler.schedule(
@@ -36,42 +37,38 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
       1.second,
       new Runnable() {
         override def run(): Unit = {
-          if(currentFrame == maxFrames) {
-            updatePoints()
+          if(isLastFrame) {
+            bots.foreach(_.updatePoints())
             currentFrame = 0
           } else{
-            moveBots()
+            moveBots(bots, scale, currentFrame, maxFrame)
             currentFrame = currentFrame + 1
           }
-          println("\n\n yas from the bots\n\n")
         }
       })
 
   def generatePointInNyc: Point = {
-    val seed = Random.nextFloat
-    val lat = nyc.left * (1 + seed)
-    val long = nyc.bottom * (1 + seed)
+    val seed = Random.nextFloat/(Random.nextFloat*100)
+//    val long = nyc.left * (1 + seed)
+    val long = Random.nextFloat * (nyc.right-nyc.left) + nyc.left
+    val lat = Random.nextFloat * (nyc.top-nyc.bottom) + nyc.bottom
+//    val lat = nyc.bottom * (1 + seed)
 
-    new Point(lat, long)
+    new Point(long, lat)
   }
 
+  def moveBots(fakeBots: Seq[Bot], scale: Float, curr: Int, max: Int) = {
+    val delta = (max.toFloat - curr.toFloat) / max.toFloat
+    val points = fakeBots map { bot => {
 
-  def updatePoints() = {
-    bots = bots.map { bot => Bot(bot.target, generatePointInNyc) }
-  }
-
-  def moveBots() = {
-
-    val points = bots map { bot => {
-
-      val latDelta = bot.target.getCoordinates.getLatitude - (bot.target.getCoordinates.getLatitude - bot.current.getCoordinates.getLatitude) * delta
-      val longDelta = bot.target.getCoordinates.getLongitude - (bot.target.getCoordinates.getLongitude - bot.current.getCoordinates.getLongitude) * delta
+      val latDelta = bot.current.getCoordinates.getLatitude + (bot.target.getCoordinates.getLatitude - bot.current.getCoordinates.getLatitude) * delta
+      val longDelta = bot.current.getCoordinates.getLongitude + (bot.target.getCoordinates.getLongitude - bot.current.getCoordinates.getLongitude) * delta
 
       raw"""
          |{
          |    "type": "Feature",
          |    "properties": {
-         |        "timestamp": "${ZonedDateTime.now()}",
+         |        "timestamp": "${ZonedDateTime.now.toString}",
          |        "isBot": true
          |    },
          |    "geometry": {
@@ -81,7 +78,7 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
          |            $longDelta
          |        ]
          |    },
-         |    "id": "Bot ${bot.hashCode}"
+         |    "id": "Bot ${bot.id}"
          |}
         """.stripMargin
       }
@@ -93,10 +90,10 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
        |    "positions": {
        |        "type": "FeatureCollection",
        |        "bbox": [
-       |            -74.2669,
-       |            40.8699,
-       |            -73.6283,
-       |            40.5696
+       |            ${nyc.left},
+       |            ${nyc.top},
+       |            ${nyc.right},
+       |            ${nyc.bottom}
        |        ],
        |        "features": [
        |            ${points.mkString(", ")}
@@ -114,7 +111,6 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
 
     case s: String =>
       println("just got a string message" + s)
-      out ! s"just got the string message: $s"
 
     case "tick" =>
       println("yas")
@@ -122,8 +118,12 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
 
   case class bbox(left: Double, right: Double, top: Double, bottom: Double)
 
-  case class Bot(current: Point, target: Point)
-
+  case class Bot(id: Int, var current: Point, var target: Point) {
+    def updatePoints() = {
+      this.current = this.target
+      this.target = generatePointInNyc
+    }
+  }
 }
 
 object FakeBots {
