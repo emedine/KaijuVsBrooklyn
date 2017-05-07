@@ -59,10 +59,14 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
 
   def moveBots(fakeBots: Seq[Bot], scale: Float, curr: Int, max: Int) = {
     val delta = (max.toFloat - curr.toFloat) / max.toFloat
-    val points = fakeBots map { bot => {
+    val points = fakeBots.zipWithIndex map { case(bot, index) => {
+
+
 
       val latDelta = bot.current.getCoordinates.getLatitude + (bot.target.getCoordinates.getLatitude - bot.current.getCoordinates.getLatitude) * delta
       val longDelta = bot.current.getCoordinates.getLongitude + (bot.target.getCoordinates.getLongitude - bot.current.getCoordinates.getLongitude) * delta
+
+      if(index ==1) println(s"($latDelta, $longDelta)")
 
       raw"""
          |{
@@ -78,7 +82,7 @@ class FakeBots(out: ActorRef, scheduler: Scheduler) extends Actor {
          |            $longDelta
          |        ]
          |    },
-         |    "id": "Bot ${bot.id}"
+         |    "id": ${bot.id}
          |}
         """.stripMargin
       }
