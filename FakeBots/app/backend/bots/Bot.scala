@@ -8,7 +8,7 @@ import akka.actor.Actor.Receive
   */
 class Bot extends Actor {
   override def receive: Receive = {
-    case "yas" => "yas yas"
+    case "yas" => println("bot got a message")
   }
 }
 
